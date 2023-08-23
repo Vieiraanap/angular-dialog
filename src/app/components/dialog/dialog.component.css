@@ -1,0 +1,80 @@
+::ng-deep .dialog-panel .small {
+  max-height: 400px;
+  max-width: 304px;
+  width: 50vw;
+}
+
+::ng-deep .dialog-panel .medium {
+  max-width: 507px;
+  min-height: 274px;
+  width: 50vw;
+}
+
+::ng-deep .dialog-panel .large {
+  max-width: 1007px;
+  min-height: 274px;
+  width: 50vw;
+}
+
+::ng-deep .dialog-panel .modal-container {
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+::ng-deep .dialog-panel div[mat-dialog-title] {
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  padding: 1rem;
+  margin: 0;
+  border-bottom: 1px solid #a7b0b5;
+}
+
+::ng-deep .dialog-panel div[mat-dialog-title]>h1 {
+  margin: 0;
+  font: 700 14px/24px "Open Sans", sans-serif;
+  color: #040f14;
+  font-size: 1rem;
+}
+
+::ng-deep .dialog-panel div[mat-dialog-title]>button {
+  height: 24px;
+  width: 24px;
+  padding: 0;
+  margin-left: auto;
+  background: none;
+  border: none;
+}
+
+::ng-deep .dialog-panel div[mat-dialog-title]>button span:first-of-type {
+  position: relative;
+  bottom: 8px;
+}
+
+::ng-deep .dialog-panel .body {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+  height: 100%;
+  padding: 1rem;
+}
+
+::ng-deep .dialog-panel .body>div[mat-dialog-content] {
+  overflow: hidden;
+  font-size: 0.95rem;
+}
+
+::ng-deep .dialog-panel .body>div[mat-dialog-actions] {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+::ng-deep .dialog-panel .body mat-dialog-container.mat-dialog-container {
+  padding: 0 !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 2px;
+}
