@@ -1,26 +1,19 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Input } from '@angular/core';
 import { Subject } from 'rxjs';
-import { DialogData } from 'src/app/models/dialog-data';
-import { ConfirmDialog } from 'src/app/models/interfaces/confirm-dialog';
+import { ConfirmDialog } from 'src/app/models/confirm-dialog';
 
 @Component({
   selector: 'app-confirm-dialog',
   templateUrl: './confirm-dialog.component.html',
   styleUrls: ['./confirm-dialog.component.css']
 })
-export class ConfirmDialogComponent implements OnInit {
+export class ConfirmDialogComponent {
 
-  data: ConfirmDialog;
+  @Input() data: ConfirmDialog = new ConfirmDialog();
   confirm: Subject<boolean>;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public dialogData: DialogData<ConfirmDialog>,
-  ) {
-    this.data = dialogData.object;
-  }
-
-  ngOnInit() {
+  constructor() {
+    this.confirm = new Subject();
   }
 
   closeDialog() {

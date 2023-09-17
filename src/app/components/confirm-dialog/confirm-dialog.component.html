@@ -1,8 +1,10 @@
-<dialog>
+<app-dialog>
+  <h1 title>{{ data?.title }}</h1>
+
   <div content>
-    {{ data.message }}
+    {{ data?.message }}
   </div>
 
-  <button mat-raised-button color="warn" cancel-button [mat-dialog-close]="true">{{ data.titleCancelAction }}</button>
-  <button mat-raised-button color="primary" confirm-button [mat-dialog-close]="false">{{ data.titleConfirmAction }}</button>
-</dialog>
+  <button mat-raised-button color="warn" cancel-button mat-dialog-close="true">{{ data?.titleCancelAction }}</button>
+  <button mat-raised-button color="primary" confirm-button mat-dialog-close="false">{{ data?.titleConfirmAction }}</button>
+</app-dialog>

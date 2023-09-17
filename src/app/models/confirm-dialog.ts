@@ -1,4 +1,4 @@
-export interface ConfirmDialog {
+export class ConfirmDialog {
   title: string;
   message: string;
   titleCancelAction: string;
