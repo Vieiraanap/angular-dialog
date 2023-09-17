@@ -5,6 +5,6 @@
     {{ data?.message }}
   </div>
 
-  <button mat-raised-button color="warn" cancel-button mat-dialog-close="true">{{ data?.titleCancelAction }}</button>
-  <button mat-raised-button color="primary" confirm-button mat-dialog-close="false">{{ data?.titleConfirmAction }}</button>
+  <button mat-raised-button color="warn" cancel-button mat-dialog-close="true" (click)="closeDialog()">{{ data?.titleCancelAction }}</button>
+  <button mat-raised-button color="primary" confirm-button mat-dialog-close="false" (click)="confirmDialog()">{{ data?.titleConfirmAction }}</button>
 </app-dialog>

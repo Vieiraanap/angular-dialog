@@ -37,9 +37,9 @@ export class AppComponent {
     const confirm$ = this.confirmDialogService.openConfirmDialog();
     confirm$.asObservable().pipe(
       take(1),
-      switchMap(confirm => confirm ? this.dataService.getData() : EMPTY)
+      switchMap(confirm => confirm ? this.dataService.mockRequest(true, {status: 200}) : this.dataService.mockRequest(false, {status: 400}))
     ).subscribe(
-      (data) => alert(data)
+      (data) => console.log(data)
     );
   }
 
