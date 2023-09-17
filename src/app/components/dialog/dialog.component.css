@@ -1,29 +1,29 @@
-::ng-deep .dialog-panel .small {
+::ng-deep .dialog-container.small {
   max-height: 400px;
   max-width: 304px;
   width: 50vw;
 }
 
-::ng-deep .dialog-panel .medium {
+::ng-deep .dialog-container.medium {
   max-width: 507px;
   min-height: 274px;
   width: 50vw;
 }
 
-::ng-deep .dialog-panel .large {
+::ng-deep .dialog-container.large {
   max-width: 1007px;
   min-height: 274px;
   width: 50vw;
 }
 
-::ng-deep .dialog-panel .modal-container {
+::ng-deep .dialog-container {
   padding: 0;
   border: 0;
   border-radius: 2px;
   overflow: hidden;
 }
 
-::ng-deep .dialog-panel div[mat-dialog-title] {
+::ng-deep .dialog-container div[mat-dialog-title] {
   display: flex;
   flex-flow: row nowrap;
   align-content: center;
@@ -32,14 +32,14 @@
   border-bottom: 1px solid #a7b0b5;
 }
 
-::ng-deep .dialog-panel div[mat-dialog-title]>h1 {
+::ng-deep .dialog-container div[mat-dialog-title]>h1 {
   margin: 0;
   font: 700 14px/24px "Open Sans", sans-serif;
   color: #040f14;
-  font-size: 1rem;
+  font-size: 1rem !important;
 }
 
-::ng-deep .dialog-panel div[mat-dialog-title]>button {
+::ng-deep .dialog-container div[mat-dialog-title]>button {
   height: 24px;
   width: 24px;
   padding: 0;
@@ -48,12 +48,12 @@
   border: none;
 }
 
-::ng-deep .dialog-panel div[mat-dialog-title]>button span:first-of-type {
+::ng-deep .dialog-container div[mat-dialog-title]>button span:first-of-type {
   position: relative;
   bottom: 8px;
 }
 
-::ng-deep .dialog-panel .body {
+::ng-deep .dialog-container .body {
   display: flex;
   flex-flow: column nowrap;
   gap: 1rem;
@@ -61,19 +61,19 @@
   padding: 1rem;
 }
 
-::ng-deep .dialog-panel .body>div[mat-dialog-content] {
+::ng-deep .dialog-container .body>div[mat-dialog-content] {
   overflow: hidden;
   font-size: 0.95rem;
 }
 
-::ng-deep .dialog-panel .body>div[mat-dialog-actions] {
+::ng-deep .dialog-container .body>div[mat-dialog-actions] {
   display: flex;
   justify-content: flex-end;
   gap: 0.75rem;
   margin-top: auto;
 }
 
-::ng-deep .dialog-panel .body mat-dialog-container.mat-dialog-container {
+::ng-deep .dialog-container .body mat-dialog-container.mat-mdc-dialog-container {
   padding: 0 !important;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
   border-radius: 2px;

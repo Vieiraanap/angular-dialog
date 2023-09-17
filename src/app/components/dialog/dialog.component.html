@@ -1,15 +1,24 @@
-<div [class]="'dialog-panel ' + (dialogData.size ? dialogData.size : 'small')">
+<div [class]="'dialog-container ' + (dialogData?.size ? dialogData?.size : 'small')">
 
 	<div mat-dialog-title>
-		<h1>{{ dialogData.title }}</h1>
-		<button mat-icon-button class="close-icon" [mat-dialog-close]="true">
+		<h1 *ngIf="dialogData?.title; else noTitle">{{ dialogData?.title }}</h1>
+
+    <ng-template #noTitle>
+      <ng-content select="[title]"></ng-content>
+    </ng-template>
+
+		<button mat-icon-button class="close-icon" mat-dialog-close="true">
 			<mat-icon>close</mat-icon>
 		</button>
 	</div>
 
 	<div class="body">
 		<div mat-dialog-content>
-			<ng-content select="[content]"></ng-content>
+      <div *ngIf="dialogData?.object; else noObject">{{ dialogData?.object }}</div>
+
+      <ng-template #noObject>
+        <ng-content select="[content]"></ng-content>
+      </ng-template>
 		</div>
 
 		<div mat-dialog-actions>
