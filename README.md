@@ -1,27 +1,131 @@
 # AngularDialog
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
+Modal Dialog Genérico com Angular Material
 
-## Development server
+# Recursos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+* Criação de modal dialog via component tags
+* Criação de modal dialog via service
+* Modal dialog para padronização de UI
+* Modal dialog para confirmação de ações
+* Mock de requisição HTTP
 
-## Code scaffolding
+# Uso
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Via component tags
 
-## Build
+O componente `<app-dialog></app-dialog>` é utilizado para padronização de interface de usuário e pode ser reutilizado via componente tags.
+Sua reutilização está representada no componente `<app-confirm-dialog></app-confirm-dialog>`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Por não ter valor em sua inicialização, o componente `<app-confirm-dialog></app-confirm-dialog>` necessariamente precisa utilizar os `seletores` de `<app-dialog></app-dialog>` para exibir os dados em seus devidos lugares.
 
-## Running unit tests
+São eles: `<h1 title></h1>`, `<div content></div>`, `<button cancel-button></button>` e `<button confirm-button></button>`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Declarados como: `<ng-content select="[title]"></ng-content>`, `<ng-content select="[content]"></ng-content>`, `<ng-content select="[cancel-button]"></ng-content>` e `<ng-content select="[confirm-button]"></ng-content>`
 
-## Running end-to-end tests
+~~~html
+<app-dialog>
+  <h1 title>{{ data?.title }}</h1>
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+  <div content>
+    {{ data?.message }}
+  </div>
 
-## Further help
+  <button cancel-button mat-raised-button color="warn" mat-dialog-close="true" (click)="closeDialog()">
+    {{ data?.titleCancelAction }}
+  </button>
+  <button confirm-button mat-raised-button color="primary" mat-dialog-close="false" (click)="confirmDialog()">
+    {{ data?.titleConfirmAction }}
+  </button>
+</app-dialog>
+~~~
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Para outros componentes, basta prover valor para o atributo `dialogData` (nesse caso via service) já na inicialização do diálogo e utilizar somente os selects de botões caso haja ação a ser executada através dele.
+
+~~~html
+<app-dialog>
+  <button mat-raised-button color="warn" cancel-button mat-dialog-close="true" (click)="closeDialog()">Cancelar</button>
+  <button mat-raised-button color="primary" confirm-button mat-dialog-close="false" (click)="confirmDialog()">Confirmar</button>
+</app-dialog>
+~~~
+
+Ou pode-se, ainda, deixar o contéudo estático no HTML, pois o atributo `object` em `dialogData` é opcional.
+
+~~~html
+<app-dialog>
+  <div content>
+    Algum conteúdo aqui
+  </div>
+
+  <button mat-raised-button color="warn" cancel-button mat-dialog-close="true" (click)="closeDialog()">Cancelar</button>
+  <button mat-raised-button color="primary" confirm-button mat-dialog-close="false" (click)="confirmDialog()">Confirmar</button>
+</app-dialog>
+~~~
+
+## Via service
+
+### Dialog Confirmação
+
+O pop-up de confirmação genérica funciona por meio de um service que executa uma ação após o clique no botão `Confimar` ou fecha o diálogo após clique no botão `Cancelar`.
+A confirmação pode executar uma chamada http ao servidor. Nesse caso, o observable do diálogo é confirmado e em seguida "chama" o observable da requisição http.
+
+~~~javascript
+openConfirmDialog(): void {
+  const confirm$ = this.confirmDialogService.openConfirmDialog();
+  confirm$.asObservable().pipe(
+    take(1),
+    switchMap(confirm => confirm ? true : false)
+  ).subscribe(
+    (data) => console.log(data)
+  );
+}
+~~~
+
+**Obs: vide mock da requisição para no arquivo data.service.ts**
+
+Caso a intenção não seja executar um novo observable após a confirmação, basta indicar a função assíncrona.
+
+~~~javascript
+openConfirmDialog(): void {
+  const confirm$ = this.confirmDialogService.openConfirmDialog();
+  confirm$.asObservable().pipe(
+    take(1),
+    switchMap(async (confirm) => confirm ? console.log(true) : console.log(false))
+  ).subscribe();
+}
+~~~
+
+#### Atributos
+
+Nome       | Valor Padrão       | Tipo            | Descrição
+-----------|--------------------|-----------------|----------
+data       | new ConfirmDialog()| ConfirmDialog   |recebe dados da modal
+confirm    | new Subject()      | Subject<boolean>|recebe confirmação da ação solicitada
+
+
+### Dialog UI
+
+Aqui temos as chamadas diretamente do service do Angular Material para abertura do pop-up na tela. Aqui definimos qual tipo de objeto e se ele será passado para dentro da modal.
+Vale lembrar que, caso o obejeto seja passado por aqui, o conteúdo dentro do seletor `content` será suprimido da tela.
+
+~~~javascript
+openDialog(): void {
+  let dialogData = new DialogData<any>({
+    title: 'Title', 
+    size: 'small', //'small' || 'medium' || 'large'
+    object: 'Any object type here' // não obrigatório
+  });
+
+  this.dialog.open(DialogComponent, {
+    data: dialogData,
+  });
+}
+~~~
+
+#### Atributos
+
+Nome       | Valor Padrão| Tipo                         | Descrição
+-----------|-------------|------------------------------|----------
+dialogData | undefined   | DialogData<T>                |recebe dados da modal
+dialogRef  | undefined   | MatDialogRef<DialogComponent>|recebe a referência da modal
+
