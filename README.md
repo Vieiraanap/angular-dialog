@@ -4,10 +4,10 @@ Modal Dialog Genérico com Angular Material
 
 # Recursos
 
-* Criação de modal dialog via component tags
-* Criação de modal dialog via service
-* Modal dialog para padronização de UI
-* Modal dialog para confirmação de ações
+* Criação de modal via component tags
+* Criação de modal via service
+* Modal para padronização de UI
+* Modal para confirmação de ações
 * Mock de requisição HTTP
 
 # Uso
